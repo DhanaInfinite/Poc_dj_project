@@ -1,0 +1,52 @@
+<html>
+    <title> 
+        Welcome to TDMPOC 
+      </title>
+        
+      <!-- text-decoration property to remove
+          underline from anchor tag -->
+      <style>
+          #GFG {
+              text-decoration: none;
+          }
+      </style>
+  </head> 
+    <center>
+    <h1>Dev Customers masked table data</h1>
+    {% if cust_list %}
+    <table border="3"> 
+        <thead> 
+        <tr> 
+            <th>customer_id</th> 
+            <th>customer_name</th> 
+            <th>customer_address</th> 
+            <th>customer_dob</th> 
+            <th>credit_card_number</th> 
+            <th>customer_ssn</th>
+
+        </tr> 
+        </thead> 
+        <tbody> 
+            {% for cust in cust_list %}  
+                <tr> 
+                    <td>{{cust.customer_id}}</td>
+                    <td>{{cust.customer_name}}</td>
+                    <td>{{cust.customer_address}}</td>
+                    <td>{{cust.customer_dob}}</td>
+                    <td>{{cust.credit_card_number}}</td>
+                    <td>{{cust.customer_ssn}}</td>
+                    
+                </tr> 
+            {% endfor %} 
+        </tbody> 
+    </table> 
+    {%else%}
+    <p>No records found...</p>
+    {% endif %}
+    <br> <br>
+
+<button><a id = "GFG"  href="/">
+    HOME PAGE
+ </a></button>
+</center>
+</html>
