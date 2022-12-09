@@ -1,4 +1,4 @@
-pipline {
+pipeline {
     agent any
     stages{
         stage('Setup Python Virtual ENV'){
@@ -6,6 +6,14 @@ pipline {
                 sh '''
                 chmod +x envsetup.sh
                 ./envsetup.sh
+                '''
+            }
+        }
+        stage('Run Django server'){
+            steps{
+                sh '''
+                chmod +x run.sh
+                ./run.sh
                 '''
             }
         }

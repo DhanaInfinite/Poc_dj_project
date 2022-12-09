@@ -18,6 +18,7 @@ fake = Faker(locale='en_US')
 from pocapp.models import Customer
 from pocapp.models import Product
 from pocapp.models import Order
+from properties import *
 
 def customer(n):
 
@@ -44,7 +45,7 @@ def product(n):
 
 #product(2)
 
-con=mysql.connector.connect(user='root',password='Dhana1525',host='localhost',database='djpoc')
+con=mysql.connector.connect(user=username,password=password,host=hostname,database=proddbname)
 cursor=con.cursor()
 
 def order(n):
@@ -85,7 +86,8 @@ def order(n):
 
 print("Data generated successfully...")
 
-engine=create_engine('mysql+mysqldb://root:Dhana1525@localhost/djpoc')
+#engine=create_engine('mysql+mysqldb://root:Dhana1525@localhost/djpoc')
+engine=create_engine('mysql+mysqldb://'+username+':'+password+'@'+hostname+'/'+proddbname)
 
 def excel():
     # To Covert from Database customer table to Excel sheet

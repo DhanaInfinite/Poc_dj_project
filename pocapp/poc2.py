@@ -9,16 +9,18 @@ from random import *
 import farmhash
 from sqlalchemy import Integer, String,BigInteger,DateTime
 #from sqlalchemy.dialects.mysql import VARCHAR
+from properties import *
 
 def mygen2():
-    con=mysql.connector.connect(user='root',password='Dhana1525',host='localhost',database='djpoc')
+    con=mysql.connector.connect(user=username,password=password,host=hostname,database=proddbname)
     cursor=con.cursor()
 
-    cursor.execute('''create table if not exists dev_customer(customer_id int NOT NULL primary key,customer_name varchar(150),
+    cursor.execute('''create table if not exists pocapp_dev_customer(customer_id int NOT NULL primary key,customer_name varchar(150),
                 customer_address varchar(256),customer_dob varchar(50),credit_card_number BIGINT ,customer_ssn BIGINT)''')
 
-    engine=create_engine('mysql+mysqldb://root:Dhana1525@localhost/djpoc')
-    
+    #engine=create_engine('mysql+mysqldb://root:Dhana1525@localhost/djpoc')
+    engine=create_engine('mysql+mysqldb://'+username+':'+password+'@'+hostname+'/'+proddbname)
+
     con.commit()
     
     df1=pd.read_sql('pocapp_customer',engine,columns=['customer_id','customer_name','customer_address','customer_dob','credit_card_number','customer_ssn'])
@@ -31,9 +33,22 @@ def mygen2():
     df1.customer_ssn = df1.customer_ssn.apply(lambda x: farmhash.hash64(str(x)))
     
     #print(df1)
-    
 
     df1.to_excel('dev_customer.xlsx')
     df1.to_sql('pocapp_dev_customer',engine,if_exists='replace',index=False,dtype={'credit_card_number':String(200),'customer_ssn':String(200)})
+    
+    # Clone to djpoc_dev database
+
+    con2=mysql.connector.connect(user=username,password=password,host=hostname,database=devdbname)
+    cursor2=con2.cursor()
+
+    cursor2.execute('''create table if not exists pocapp_dev_customer(customer_id int NOT NULL primary key,customer_name varchar(150),
+                customer_address varchar(256),customer_dob varchar(50),credit_card_number BIGINT ,customer_ssn BIGINT)''')
+
+    #engine2=create_engine('mysql+mysqldb://root:Dhana1525@localhost/djpoc_dev')
+    engine2=create_engine('mysql+mysqldb://'+username+':'+password+'@'+hostname+'/'+devdbname)
+    
+    con.commit()
+    df1.to_sql('pocapp_dev_customer',engine2,if_exists='replace',index=False,dtype={'credit_card_number':String(200),'customer_ssn':String(200)})
 
 #mygen2()

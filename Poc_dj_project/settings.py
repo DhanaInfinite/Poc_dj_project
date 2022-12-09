@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from properties import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,9 +83,9 @@ WSGI_APPLICATION = 'Poc_dj_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djpoc',
-        'USER': 'root',
-        'PASSWORD': 'Dhana1525'
+        'NAME': proddbname,
+        'USER': username,
+        'PASSWORD': password,
     }
 }
 
