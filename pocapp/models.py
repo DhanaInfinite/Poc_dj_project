@@ -26,5 +26,16 @@ class Dev_Customer(models.Model):
     customer_name=models.CharField(max_length=156)
     customer_address=models.CharField(max_length=256)
     customer_dob=models.DateField()
+    #credit_card_number=models.BigIntegerField()
+    #customer_ssn=models.BigIntegerField()
+    credit_card_number=models.CharField(max_length=256)
+    customer_ssn=models.CharField(max_length=256)
+
+class Dev_Unmask_Customer(models.Model):
+    customer_id=models.BigIntegerField(primary_key=True, editable=True)
+    customer_name=models.CharField(max_length=156)
+    customer_address=models.CharField(max_length=256)
+    customer_dob=models.DateField()
     credit_card_number=models.BigIntegerField()
     customer_ssn=models.BigIntegerField()
+   
