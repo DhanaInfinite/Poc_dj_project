@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pocapp',
     'rest_framework',
+    'import_export',
 ]
 
 MIDDLEWARE = [
